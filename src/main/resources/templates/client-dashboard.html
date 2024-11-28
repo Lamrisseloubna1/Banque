@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord du client</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .balance {
+            text-align: center;
+            font-size: 1.5em;
+            margin: 20px 0;
+            color: #4CAF50;
+        }
+
+        .transactions {
+            margin-top: 30px;
+        }
+
+        .transactions h2 {
+            color: #333;
+        }
+
+        .transactions ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .transactions li {
+            background: #f9f9f9;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Bienvenue, <span th:text="${clientName}"></span> !</h1>
+    <p class="balance">Votre solde actuel : <span th:text="${balance}"></span> €</p>
+
+    <div th:if="${error}" class="error">
+        <p th:text="${error}"></p>
+    </div>
+
+    <div class="transactions">
+        <h2>Dernières transactions :</h2>
+        <ul>
+            <li th:each="transaction : ${recentTransactions}">
+                <span th:text="${transaction.date}"></span> -
+                <span th:text="${transaction.description}"></span> -
+                <span th:text="${transaction.amount}"></span> €
+            </li>
+        </ul>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="/client/transfer" style="text-decoration: none; color: white; background-color: #4CAF50; padding: 10px 20px; border-radius: 5px;">Faire un transfert</a>
+    </div>
+</div>
+
+</body>
+</html>
